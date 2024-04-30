@@ -1,3 +1,4 @@
+//question structure
 export type Question={
     id:number,
     question:string,
@@ -7,3 +8,4 @@ export type Question={
     option4:string,
     answer:string
 };
+

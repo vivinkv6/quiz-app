@@ -1,6 +1,6 @@
-import { Question } from "../types/questions.type";
+import { Question } from "../types/types";
 
-const questions:Question[]= [
+export const questions:Question[]= [
     {
       id: 1,
       question: "What is the capital of France?",
