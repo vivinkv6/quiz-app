@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import {useNavigate} from 'react-router-dom';
 
 type CountDownProps={
   countdown:number,
@@ -8,8 +9,10 @@ type CountDownProps={
   setGetStart:React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const CountDown = ({countdown,setCountdown,getStart,setGetStart}:CountDownProps) => {
 
+
+const CountDown = ({countdown,setCountdown,getStart,setGetStart}:CountDownProps) => {
+  const navigation=useNavigate()
   
   useEffect(() => {
    
@@ -34,6 +37,15 @@ const CountDown = ({countdown,setCountdown,getStart,setGetStart}:CountDownProps)
       return () => clearTimeout(timer);
     }
   }, [getStart]);
+
+  useEffect(()=>{
+    if(getStart){
+      console.log(navigation);
+      navigation('/quiz')
+      
+      
+    }
+  })
 
   return (
     <div className="flex justify-center items-center h-screen">

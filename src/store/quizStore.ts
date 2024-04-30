@@ -35,8 +35,9 @@ export const useQuizStore = create<State & Action>((set) => ({
   },
   subpoint: (point) => {
     set((state) => ({
-      point: state.point - point,
+      point: state.point < point ? 0 : state.point-point,
     }));
+
   },
   totalScore: () => {
     set((state) => ({

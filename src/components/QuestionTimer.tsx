@@ -1,7 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useQuizStore } from "../store/quizStore";
-function QuestionTimer() {
+
+type TypeProp={
+  type:"quiz"|"end"
+}
+function QuestionTimer({type}:TypeProp) {
     const question=useQuizStore(state=>state.question);
   return (
     <motion.div>
@@ -11,7 +15,7 @@ function QuestionTimer() {
         transition={{ duration: 2 }}
         className="text-8xl text-white"
       >
-        {question}
+        { type == 'quiz' ? question : "END"}
       </motion.p>
     </motion.div>
   );

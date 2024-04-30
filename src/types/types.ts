@@ -1,11 +1,11 @@
 //question structure
 export type Question={
     id:number,
-    question:string,
-    option1:string,
-    option2:string,
-    option3:string,
-    option4:string,
-    answer:string
+    question:string|undefined,
+    option1:string|undefined,
+    option2:string|undefined,
+    option3:string|undefined,
+    option4:string|undefined,
+    answer:string|undefined
 };
 
