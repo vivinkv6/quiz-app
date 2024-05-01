@@ -15,6 +15,7 @@ type Action = {
   totalScore: () => void;
   addCorrect: () => void;
   addWrong: () => void;
+  reset: () => void;
 };
 
 export const useQuizStore = create<State & Action>((set) => ({
@@ -35,9 +36,8 @@ export const useQuizStore = create<State & Action>((set) => ({
   },
   subpoint: (point) => {
     set((state) => ({
-      point: state.point < point ? 0 : state.point-point,
+      point: state.point < point ? 0 : state.point - point,
     }));
-
   },
   totalScore: () => {
     set((state) => ({
@@ -52,6 +52,15 @@ export const useQuizStore = create<State & Action>((set) => ({
   addWrong: () => {
     set((state) => ({
       wrong: state.wrong + 1,
+    }));
+  },
+  reset: () => {
+    set(() => ({
+      question: 1,
+      score: "",
+      point: 0,
+      correct: 0,
+      wrong: 0,
     }));
   },
 }));

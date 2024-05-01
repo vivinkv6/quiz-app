@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import QuestionTimer from "../components/QuestionTimer";
 import QuizQuestion from "../components/QuizQuestion";
 import { useQuizStore } from "../store/quizStore";

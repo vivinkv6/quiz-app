@@ -3,11 +3,14 @@ import Home from "./pages/Home";
 import { useState } from "react";
 import Quiz from "./pages/Quiz";
 import {Routes,Route} from 'react-router-dom';
-import Result from "./components/Result";
+import Result from "./pages/Result";
+
 
 function App() {
   const [countdown, setCountdown] = useState<number>(3);
   const [getStart, setGetStart] = useState<boolean>(false);
+
+  
 
   return (
     <>
