@@ -15,16 +15,6 @@ function App() {
 
   return (
     <>
-      {/* {!getStart ? (
-        <Home
-          countdown={countdown}
-          setCountdown={setCountdown}
-          getStart={getStart}
-          setGetStart={setGetStart}
-        />
-      ) : (
-        <Quiz />
-      )} */}
       <Routes>
       <Route path="/" element={<Home setCountDown={setCountdown} setGetStart={setGetStart}/>} />
         <Route path="start" element={<StartQuiz countdown={countdown}
