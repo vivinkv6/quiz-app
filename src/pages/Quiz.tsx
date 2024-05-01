@@ -31,7 +31,7 @@ function Quiz() {
           
         </div>
       ) : (
-        <QuizQuestion timer={timer} setTimer={setTimer} />
+        <QuizQuestion setTimer={setTimer} />
       )}
     </>
   );

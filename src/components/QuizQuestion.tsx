@@ -9,13 +9,10 @@ import { useNavigate } from "react-router-dom";
 import Timer from "./Timer";
 
 type TimerProp = {
-  timer: boolean;
   setTimer: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function QuizQuestion({ timer, setTimer }: TimerProp) {
-  //constant card color
-  const cardColor: string[] = ["blue", "emerald", "yellow", "red"];
+function QuizQuestion({ setTimer }: TimerProp) {
   const navigation = useNavigate();
   const [fetchQuestion, setFetchQuestion] = useState<Question | undefined>();
   const [len, setLen] = useState<number>(0);
