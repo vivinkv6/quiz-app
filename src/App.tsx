@@ -4,6 +4,7 @@ import { useState } from "react";
 import Quiz from "./pages/Quiz";
 import {Routes,Route} from 'react-router-dom';
 import Result from "./pages/Result";
+import StartQuiz from "./pages/StartQuiz";
 
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
         <Quiz />
       )} */}
       <Routes>
-        <Route path="/" element={<Home countdown={countdown}
+      <Route path="/" element={<Home setCountDown={setCountdown} setGetStart={setGetStart}/>} />
+        <Route path="start" element={<StartQuiz countdown={countdown}
           setCountdown={setCountdown}
           getStart={getStart}
           setGetStart={setGetStart} />}/>

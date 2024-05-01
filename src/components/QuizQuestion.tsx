@@ -63,7 +63,7 @@ function QuizQuestion({ timer, setTimer }: TimerProp) {
       if (question > questions.length) {
         navigation("/result");
       }
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (
@@ -133,7 +133,7 @@ function QuizQuestion({ timer, setTimer }: TimerProp) {
                     <p className="border-gray-800 border-2 inline px-2 py-1 rounded-md text-center absolute right-1 top-1 text-sm md:text-base">
                       {index + 1}
                     </p>
-                    <p className="text-xl md:text-3xl font-semibold text-white">
+                    <p className="md:text-5xl sm:text-2xl font-semibold text-white">
                       {option}
                     </p>
                   </motion.div>
@@ -147,7 +147,7 @@ function QuizQuestion({ timer, setTimer }: TimerProp) {
                   transition={{ duration: 1 }}
                   className="w-[80%] md:w-[50%] h-[150px] md:h-[300px] bg-green-500 rounded-md flex justify-center items-center"
                 >
-                  <p className="text-xl md:text-3xl font-semibold text-white">
+                  <p className="md:text-5xl sm:text-2xl font-semibold text-white">
                     {fetchQuestion?.answer}
                   </p>
                 </motion.div>
