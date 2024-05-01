@@ -14,6 +14,8 @@ type TimerProp = {
 };
 
 function QuizQuestion({ timer, setTimer }: TimerProp) {
+  //constant card color
+  const cardColor: string[] = ["blue", "emerald", "yellow", "red"];
   const navigation = useNavigate();
   const [fetchQuestion, setFetchQuestion] = useState<Question | undefined>();
   const [len, setLen] = useState<number>(0);
@@ -27,8 +29,10 @@ function QuizQuestion({ timer, setTimer }: TimerProp) {
   const nextQuestion = useQuizStore((state) => state.nextQuestion);
   const addCorrect = useQuizStore((state) => state.addCorrect);
   const addWrong = useQuizStore((state) => state.addWrong);
+  const [showOptions, setShowOptions] = useState<boolean>(true);
 
   const checkAnswer = (option: string, answer: string): void => {
+    setShowOptions(false); // Hide options when an answer is checked
     if (option === answer) {
       addCorrect();
       addPoint(300);
@@ -44,7 +48,8 @@ function QuizQuestion({ timer, setTimer }: TimerProp) {
     setTimeout(() => {
       nextQuestion();
       setTimer(true);
-    }, 1000);
+      setShowOptions(true); // Show options again for the next question
+    }, 3000);
   };
 
   useEffect(() => {
@@ -66,66 +71,88 @@ function QuizQuestion({ timer, setTimer }: TimerProp) {
       {question <= questions.length && (
         <>
           <Timer setTimer={setTimer} />
-          <div className="bg-black flex flex-row justify-between p-5">
+          <div className="bg-black flex flex-row justify-between p-2 md:p-5">
             <div className="flex flex-row gap-2">
-              <p className="bg-gray-700 p-3 rounded-lg text-lg text-white font-semibold">
+              <p className="bg-gray-700 p-2 md:p-3 rounded-lg text-sm md:text-lg text-white font-semibold">
                 {question} / {len}
               </p>
               <motion.button
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className="bg-yellow-400 text-white font-bold py-2 px-4 rounded"
+                className="bg-yellow-400 text-white font-bold py-1 md:py-2 px-2 md:px-4 rounded text-sm md:text-base"
               >
                 Streak
               </motion.button>
             </div>
             <div className="flex space-x-2 bg-gray-800 rounded-md">
-              <p className="text-white font-bold p-3 border-r-2 border-black flex items-center gap-2">
+              <p className="text-white font-bold p-2 md:p-3 border-r-2 border-black flex items-center gap-1 md:gap-2 text-sm md:text-base">
                 <FaMedal color="#3f07b0" /> 10th
               </p>
-              <p className="text-white font-bold p-3 border-r-2 border-black flex items-center gap-2">
+              <p className="text-white font-bold p-2 md:p-3 border-r-2 border-black flex items-center gap-1 md:gap-2 text-sm md:text-base">
                 <FaCoins color="#f59611" />
                 {point}
               </p>
             </div>
           </div>
 
-          <motion.div className="mt-10">
+          <motion.div className="mt-5 md:mt-10">
             <motion.p
               animate={{ opacity: 1 }}
               initial={{ opacity: 0 }}
               transition={{ duration: 2 }}
-              className="text-6xl text-white text-center"
+              className="text-4xl md:text-6xl text-white text-center"
             >
               {fetchQuestion?.question}
             </motion.p>
-            <div className="flex gap-5 mt-10 w-[100%] h-auto p-5">
-              {[
-                fetchQuestion?.option1,
-                fetchQuestion?.option2,
-                fetchQuestion?.option3,
-                fetchQuestion?.option4,
-              ].map((option, index) => (
+            {showOptions ? (
+              <div className="flex flex-wrap justify-center gap-3 mt-5 md:mt-10 p-2 md:p-5">
+                {[
+                  fetchQuestion?.option1,
+                  fetchQuestion?.option2,
+                  fetchQuestion?.option3,
+                  fetchQuestion?.option4,
+                ].map((option, index) => (
+                  <motion.div
+                    key={index}
+                    onClick={() =>
+                      checkAnswer(option || "", fetchQuestion?.answer || "")
+                    }
+                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    transition={{ delay: 2 + index, duration: 1 }}
+                    className={`w-[48%] md:w-[23%] h-[150px] md:h-[300px] ${
+                      {
+                        0: "bg-blue-500",
+                        1: "bg-emerald-500",
+                        2: "bg-yellow-500",
+                        3: "bg-red-500",
+                      }[index]
+                    } rounded-md relative flex justify-center items-center`}
+                  >
+                    <p className="border-gray-800 border-2 inline px-2 py-1 rounded-md text-center absolute right-1 top-1 text-sm md:text-base">
+                      {index + 1}
+                    </p>
+                    <p className="text-xl md:text-3xl font-semibold text-white">
+                      {option}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex justify-center items-center mt-5 md:mt-10 w-full h-auto p-2 md:p-5">
                 <motion.div
-                  key={index}
-                  onClick={() =>
-                    checkAnswer(option || "", fetchQuestion?.answer || "")
-                  }
                   animate={{ opacity: 1 }}
                   initial={{ opacity: 0 }}
-                  transition={{ delay: 2 + index, duration: 1 }}
-                  className={`w-[25%] h-[300px] bg-${
-                    ["blue", "emerald", "yellow", "red"][index]
-                  }-500 rounded-md relative flex justify-center items-center`}
+                  transition={{ duration: 1 }}
+                  className="w-[80%] md:w-[50%] h-[150px] md:h-[300px] bg-green-500 rounded-md flex justify-center items-center"
                 >
-                  <p className="border-gray-800 border-2 inline px-3 py-1 rounded-md text-center absolute right-2 top-2">
-                    {index + 1}
+                  <p className="text-xl md:text-3xl font-semibold text-white">
+                    {fetchQuestion?.answer}
                   </p>
-                  <p className="text-3xl font-semibold text-white">{option}</p>
                 </motion.div>
-              ))}
-            </div>
+              </div>
+            )}
           </motion.div>
 
           {correctAnswer && <Message status="pass" message="CORRECT ANSWER" />}
