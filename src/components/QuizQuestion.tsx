@@ -67,7 +67,7 @@ function QuizQuestion({ setTimer }: TimerProp) {
     <>
       {question <= questions.length && (
         <>
-          <Timer setTimer={setTimer} />
+         {showOptions &&  <Timer setTimer={setTimer} />}
           <div className="bg-black flex flex-row justify-between p-2 md:p-5">
             <div className="flex flex-row gap-2">
               <p className="bg-gray-700 p-2 md:p-3 rounded-lg text-sm md:text-lg text-white font-semibold">
